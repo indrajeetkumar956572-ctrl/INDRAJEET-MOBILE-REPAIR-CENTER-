@@ -1,231 +1,249 @@
-
 <!DOCTYPE html>
 <html lang="hi">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Indrajeet Shop Manager</title>
+<title>Indrajeet Mobile Repair Center</title>
 <style>
 *{box-sizing:border-box}
-body{margin:0;font-family:Arial,sans-serif;background:#f1f5f2;color:#17251c}
-header{background:#087b42;color:white;padding:22px 16px;border-radius:0 0 20px 20px}
-header h2{margin:0 0 6px}
-header p{margin:0;font-size:13px}
-.container{padding:15px;max-width:650px;margin:auto}
-.cards{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.card,.panel{background:white;padding:16px;border-radius:13px;box-shadow:0 2px 8px #0001;margin-bottom:13px}
-.card small{color:#65736a}
-.card h2{color:#087b42;margin:10px 0 0}
-h3{margin-top:5px}
-input,select,button{width:100%;padding:12px;margin:6px 0;border:1px solid #ccd8cf;border-radius:8px;font-size:15px}
-button{background:#087b42;color:white;border:0;font-weight:bold}
-button.secondary{background:#e1f1e7;color:#087b42}
-button.danger{background:#b83232}
-nav{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-bottom:14p}
-nav button{font-size:12px;padding:12px 4px}
-.item{border-bottom:1px solid #ddd;padding:12px 0}
-.item b{color:#087b42}
-.item small{display:block;color:#66736a;margin:5px 0}
-.hidden{display:none}
-.green{color:#087b42}
+body{margin:0;font-family:Arial,sans-serif;background:#f1f6f2;color:#183525}
+header{background:#087b42;color:white;padding:20px 15px;text-align:center}
+header h2{margin:0 0 7px}
+nav{display:flex;overflow-x:auto;background:#075c34}
+nav button{background:none;border:0;color:white;padding:14px 13px;white-space:nowrap;font-size:14px}
+nav button.active{background:#12a05b}
+main{padding:14px;max-width:750px;margin:auto}
+.page{display:none}
+.page.active{display:block}
+.card{background:white;padding:16px;border-radius:12px;margin:12px 0;box-shadow:0 2px 7px #0001}
+h3{color:#087b42;margin-top:0}
+input,select,textarea{width:100%;padding:12px;margin:7px 0;border:1px solid #cbd8ce;border-radius:8px;font-size:15px;background:white}
+button.action{background:#087b42;color:white;border:0;padding:12px 16px;border-radius:8px;margin:5px 0;font-size:14px}
+button.delete{background:#c0392b;color:white;border:0;padding:7px;border-radius:6px}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.stat{background:#e2f5e9;padding:15px;border-radius:10px}
+.stat strong{display:block;font-size:22px;color:#087b42;margin-top:8px}
+.item{border-bottom:1px solid #eee;padding:12px 0}
+.small{font-size:13px;color:#65756b}
+footer{text-align:center;padding:20px;color:#667}
 </style>
 </head>
 <body>
-
 <header>
-<h2>📱 Indrajeet Shop Manager</h2>
-<p>Indrajeet Mobile Repair Center</p>
-<p>आपकी दुकान, आपका हिसाब</p>
+<h2>📱 Indrajeet Mobile Repair Center</h2>
+<div>आपकी दुकान का डिजिटल मैनेजमेंट</div>
 </header>
 
-<div class="container">
-
-<div class="cards">
-<div class="card"><small>आज की बिक्री</small><h2 id="sales">₹0</h2></div>
-<div class="card"><small>कुल बाकी पेमेंट</small><h2 id="pending">₹0</h2></div>
-<div class="card"><small>कुल रिपेयर</small><h2 id="repairs">0</h2></div>
-<div class="card"><small>डिलीवरी बाकी</small><h2 id="delivery">0</h2></div>
-</div>
-
 <nav>
-<button onclick="show('home')">🏠 होम</button>
-<button onclick="show('repair')">🔧 रिपेयर</button>
-<button onclick="show('stock')">📦 स्टॉक</button>
-<button onclick="show('payment')">💰 पेमेंट</button>
-<button onclick="show('list')">📋 रिकॉर्ड</button>
-<button onclick="show('backup')">💾 बैकअप</button>
+<button class="active" onclick="show('home',this)">होम</button>
+<button onclick="show('orders',this)">ऑर्डर</button>
+<button onclick="show('stock',this)">स्टॉक</button>
+<button onclick="show('payments',this)">उधार</button>
+<button onclick="show('sales',this)">बिक्री</button>
 </nav>
 
-<section id="home" class="panel">
-<h3>स्वागत है! 👋</h3>
-<p>Indrajeet Mobile Repair Center में आपका स्वागत है।</p>
-<p>आज के काम और दुकान का हिसाब यहाँ देखें।</p>
+<main>
+<section id="home" class="page active">
+<div class="card">
+<h3>दुकान का डैशबोर्ड</h3>
+<div class="stats">
+<div class="stat">कुल ऑर्डर<strong id="totalOrders">0</strong></div>
+<div class="stat">कुल स्टॉक<strong id="totalStock">0</strong></div>
+<div class="stat">बाकी पैसे<strong id="totalDue">₹0</strong></div>
+<div class="stat">आज की बिक्री<strong id="todaySales">₹0</strong></div>
+</div>
+</div>
+<div class="card">
+<h3>दुकान की जानकारी</h3>
+Indrajeet Mobile Repair Center<br>
+मोबाइल रिपेयरिंग और Accessories
+</div>
 </section>
 
-<section id="repair" class="panel hidden">
-<h3>🔧 नया रिपेयर रिकॉर्ड</h3>
-<input id="name" placeholder="ग्राहक का नाम">
-<input id="phone" type="tel" placeholder="मोबाइल नंबर">
+<section id="orders" class="page">
+<div class="card">
+<h3>नया रिपेयरिंग ऑर्डर</h3>
+<input id="customer" placeholder="ग्राहक का नाम">
+<input id="phone" placeholder="मोबाइल नंबर" type="tel">
 <input id="model" placeholder="मोबाइल मॉडल">
 <input id="problem" placeholder="मोबाइल में क्या खराबी है?">
-<input id="cost" type="number" placeholder="कुल रिपेयर चार्ज">
-<input id="paid" type="number" placeholder="जमा पेमेंट">
+<input id="charge" type="number" placeholder="रिपेयरिंग चार्ज">
 <select id="status">
-<option>रिपेयर बाकी</option>
-<option>रिपेयर हो रहा है</option>
-<option>तैयार है</option>
-<option>डिलीवर हो गया</option>
+<option>Received</option>
+<option>Repairing</option>
+<option>Ready</option>
+<option>Delivered</option>
 </select>
-<button onclick="addRepair()">रिकॉर्ड सेव करें</button>
-</section>
-
-<section id="stock" class="panel hidden">
-<h3>📦 नया सामान जोड़ें</h3>
-<input id="product" placeholder="सामान का नाम">
-<input id="quantity" type="number" placeholder="कितनी संख्या">
-<input id="price" type="number" placeholder="प्रति सामान कीमत">
-<button onclick="addStock()">स्टॉक सेव करें</button>
-<h3>स्टॉक लिस्ट</h3>
-<div id="stockList"></div>
-</section>
-
-<section id="payment" class="panel hidden">
-<h3>💰 पेमेंट हिसाब</h3>
-<input id="payName" placeholder="ग्राहक का नाम">
-<input id="payAmount" type="number" placeholder="जमा रकम">
-<button onclick="addPayment()">पेमेंट जमा करें</button>
-<p>पेमेंट रिकॉर्ड रिपेयर सूची में भी दिखाई देगा।</p>
-</section>
-
-<section id="list" class="panel hidden">
-<h3>📋 रिपेयर रिकॉर्ड</h3>
-<input id="search" placeholder="नाम या मोबाइल नंबर खोजें" oninput="render()">
-<div id="repairList"></div>
-</section>
-
-<section id="backup" class="panel hidden">
-<h3>💾 डेटा बैकअप</h3>
-<p>अपने दुकान के रिकॉर्ड की कॉपी डाउनलोड करें।</p>
-<button onclick="backup()">डेटा डाउनलोड करें</button>
-<p>डाउनलोड की गई JSON फाइल सुरक्षित रखें।</p>
-<button class="danger" onclick="clearData()">सारा डेटा मिटाएँ</button>
-</section>
-
+<button class="action" onclick="addOrder()">ऑर्डर सेव करें</button>
 </div>
+<div class="card">
+<h3>सभी ऑर्डर</h3>
+<div id="orderList"></div>
+</div>
+</section>
+
+<section id="stock" class="page">
+<div class="card">
+<h3>नया सामान जोड़ें</h3>
+<input id="product" placeholder="सामान का नाम">
+<input id="quantity" type="number" placeholder="कितनी संख्या है?">
+<input id="price" type="number" placeholder="एक सामान की कीमत">
+<button class="action" onclick="addStock()">स्टॉक सेव करें</button>
+</div>
+<div class="card">
+<h3>सामान की लिस्ट</h3>
+<div id="stockList"></div>
+</div>
+</section>
+
+<section id="payments" class="page">
+<div class="card">
+<h3>बाकी पैसे का हिसाब</h3>
+<input id="dueName" placeholder="ग्राहक का नाम">
+<input id="dueAmount" type="number" placeholder="बाकी रकम">
+<button class="action" onclick="addDue()">उधार सेव करें</button>
+</div>
+<div class="card">
+<h3>Pending Payments</h3>
+<div id="dueList"></div>
+</div>
+</section>
+
+<section id="sales" class="page">
+<div class="card">
+<h3>आज की बिक्री जोड़ें</h3>
+<input id="saleName" placeholder="किस चीज की बिक्री हुई?">
+<input id="saleAmount" type="number" placeholder="बिक्री की रकम">
+<button class="action" onclick="addSale()">बिक्री सेव करें</button>
+</div>
+<div class="card">
+<h3>बिक्री का रिकॉर्ड</h3>
+<div id="saleList"></div>
+</div>
+</section>
+</main>
+
+<footer>Indrajeet Mobile Repair Center © 2026</footer>
 
 <script>
-let repairs=JSON.parse(localStorage.getItem('repairs')||'[]');
-let stocks=JSON.parse(localStorage.getItem('stocks')||'[]');
-let payments=JSON.parse(localStorage.getItem('payments')||'[]');
+const load=(key)=>JSON.parse(localStorage.getItem(key)||"[]");
+const save=(key,data)=>localStorage.setItem(key,JSON.stringify(data));
+let orders=load("imrc_orders");
+let stocks=load("imrc_stocks");
+let dues=load("imrc_dues");
+let sales=load("imrc_sales");
 
-function save(){
-localStorage.setItem('repairs',JSON.stringify(repairs));
-localStorage.setItem('stocks',JSON.stringify(stocks));
-localStorage.setItem('payments',JSON.stringify(payments));
-render();
+function show(id,btn){
+ document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
+ document.getElementById(id).classList.add("active");
+ document.querySelectorAll("nav button").forEach(b=>b.classList.remove("active"));
+ btn.classList.add("active");
 }
 
-function show(id){
-document.querySelectorAll('.container section').forEach(x=>x.classList.add('hidden'));
-document.getElementById(id).classList.remove('hidden');
-render();
-}
-
-function addRepair(){
-let n=document.getElementById('name').value.trim();
-let p=document.getElementById('phone').value.trim();
-let m=document.getElementById('model').value.trim();
-let problem=document.getElementById('problem').value.trim();
-let c=Number(document.getElementById('cost').value)||0;
-let paid=Number(document.getElementById('paid').value)||0;
-let status=document.getElementById('status').value;
-if(!n||!m||!problem){alert('नाम, मॉडल और खराबी भरें');return}
-if(paid>c){alert('जमा पेमेंट कुल चार्ज से ज्यादा नहीं हो सकता');return}
-repairs.push({id:Date.now(),name:n,phone:p,model:m,problem,cost:c,paid,status,date:new Date().toLocaleDateString('hi-IN')});
-save();
-['name','phone','model','problem','cost','paid'].forEach(id=>document.getElementById(id).value='');
-alert('रिपेयर रिकॉर्ड सेव हो गया');
-show('list');
+function addOrder(){
+ let name=customer.value.trim(), mobile=phone.value.trim();
+ if(!name||!mobile){alert("ग्राहक का नाम और मोबाइल नंबर भरें");return}
+ orders.unshift({
+ id:Date.now(),name,mobile,model:model.value,
+ problem:problem.value,charge:Number(charge.value)||0,
+ status:status.value,date:new Date().toLocaleDateString("en-IN")
+ });
+ save("imrc_orders",orders);
+ customer.value=phone.value=model.value=problem.value=charge.value="";
+ render();
+ alert("ऑर्डर सेव हो गया!");
 }
 
 function addStock(){
-let n=document.getElementById('product').value.trim();
-let q=Number(document.getElementById('quantity').value);
-let p=Number(document.getElementById('price').value);
-if(!n||q<=0||p<0||!Number.isFinite(q)||!Number.isFinite(p)){alert('सही जानकारी भरें');return}
-stocks.push({name:n,quantity:q,price:p});
-save();
-document.getElementById('product').value='';
-document.getElementById('quantity').value='';
-document.getElementById('price').value='';
-alert('स्टॉक सेव हो गया');
+ let name=product.value.trim(),qty=Number(quantity.value),cost=Number(price.value);
+ if(!name||qty<1||cost<0||!Number.isFinite(qty)||!Number.isFinite(cost)){
+ alert("सही सामान, संख्या और कीमत भरें");return
+ }
+ stocks.unshift({id:Date.now(),name,qty,cost});
+ save("imrc_stocks",stocks);
+ product.value=quantity.value=price.value="";
+ render();
 }
 
-function addPayment(){
-let n=document.getElementById('payName').value.trim();
-let a=Number(document.getElementById('payAmount').value);
-if(!n||a<=0||!Number.isFinite(a)){alert('सही नाम और रकम भरें');return}
-let r=repairs.find(x=>x.name.toLowerCase()===n.toLowerCase()&&x.cost>x.paid);
-if(!r){alert('इस नाम से कोई बाकी पेमेंट वाला रिकॉर्ड नहीं मिला');return}
-let amount=Math.min(a,r.cost-r.paid);
-r.paid+=amount;
-payments.push({name:n,amount,date:new Date().toLocaleDateString('hi-IN')});
-save();
-document.getElementById('payName').value='';
-document.getElementById('payAmount').value='';
-alert('पेमेंट सेव हो गया');
+function addDue(){
+ let name=dueName.value.trim(),amount=Number(dueAmount.value);
+ if(!name||amount<=0||!Number.isFinite(amount)){
+ alert("ग्राहक का नाम और सही रकम भरें");return
+ }
+ dues.unshift({id:Date.now(),name,amount});
+ save("imrc_dues",dues);
+ dueName.value=dueAmount.value="";
+ render();
+}
+
+function addSale(){
+ let name=saleName.value.trim(),amount=Number(saleAmount.value);
+ if(!name||amount<=0||!Number.isFinite(amount)){
+ alert("सामान का नाम और सही रकम भरें");return
+ }
+ sales.unshift({
+ id:Date.now(),name,amount,
+ date:new Date().toLocaleDateString("en-IN")
+ });
+ save("imrc_sales",sales);
+ saleName.value=saleAmount.value="";
+ render();
+}
+
+function removeItem(key,id){
+ if(!confirm("क्या आप इसे हटाना चाहते हैं?"))return;
+ let data=load(key).filter(x=>x.id!==id);
+ save(key,data);
+ orders=load("imrc_orders");
+ stocks=load("imrc_stocks");
+ dues=load("imrc_dues");
+ sales=load("imrc_sales");
+ render();
+}
+
+function changeStatus(id,value){
+ let item=orders.find(x=>x.id===id);
+ if(item){item.status=value;save("imrc_orders",orders);render()}
 }
 
 function render(){
-let today=new Date().toLocaleDateString('hi-IN');
-let sales=repairs.filter(x=>x.date===today).reduce((s,x)=>s+x.paid,0);
-let pending=repairs.reduce((s,x)=>s+Math.max(0,x.cost-x.paid),0);
-document.getElementById('sales').textContent='₹'+sales;
-document.getElementById('pending').textContent='₹'+pending;
-document.getElementById('repairs').textContent=repairs.length;
-document.getElementById('delivery').textContent=repairs.filter(x=>x.status!=='डिलीवर हो गया').length;
+ document.getElementById("totalOrders").textContent=orders.length;
+ document.getElementById("totalStock").textContent=stocks.reduce((s,x)=>s+x.qty,0);
+ document.getElementById("totalDue").textContent="₹"+dues.reduce((s,x)=>s+x.amount,0);
+ let today=new Date().toLocaleDateString("en-IN");
+ document.getElementById("todaySales").textContent="₹"+sales.filter(x=>x.date===today).reduce((s,x)=>s+x.amount,0);
 
-let query=(document.getElementById('search')?.value||'').toLowerCase();
-document.getElementById('repairList').innerHTML=repairs.filter(x=>(x.name+' '+x.phone).toLowerCase().includes(query)).slice().reverse().map(x=>`
-<div class="item">
-<b>${esc(x.name)}</b> — ${esc(x.model)}
-<small>फोन: ${esc(x.phone)} | खराबी: ${esc(x.problem)}</small>
-<small>चार्ज: ₹${x.cost} | जमा: ₹${x.paid} | बाकी: ₹${Math.max(0,x.cost-x.paid)}</small>
-<small>स्थिति: ${esc(x.status)} | तारीख: ${esc(x.date)}</small>
-<select onchange="changeStatus(${x.id},this.value)">
-<option ${x.status==='रिपेयर बाकी'?'selected':''}>रिपेयर बाकी</option>
-<option ${x.status==='रिपेयर हो रहा है'?'selected':''}>रिपेयर हो रहा है</option>
-<option ${x.status==='तैयार है'?'selected':''}>तैयार है</option>
-<option ${x.status==='डिलीवर हो गया'?'selected':''}>डिलीवर हो गया</option>
-</select>
-<button class="danger" onclick="deleteRepair(${x.id})">रिकॉर्ड हटाएँ</button>
-</div>`).join('')||'<p>अभी कोई रिकॉर्ड नहीं है।</p>';
+ document.getElementById("orderList").innerHTML=orders.map(x=>`
+ <div class="item">
+ <b>${esc(x.name)}</b> - ${esc(x.mobile)}<br>
+ ${esc(x.model)} | ${esc(x.problem)}<br>
+ चार्ज: ₹${x.charge}<br>
+ <select onchange="changeStatus(${x.id},this.value)">
+ ${["Received","Repairing","Ready","Delivered"].map(s=>`<option ${x.status===s?"selected":""}>${s}</option>`).join("")}
+ </select>
+ <button class="delete" onclick="removeItem('imrc_orders',${x.id})">हटाएँ</button>
+ </div>`).join("")||"अभी कोई ऑर्डर नहीं है";
 
-document.getElementById('stockList').innerHTML=stocks.map((x,i)=>`
-<div class="item"><b>${esc(x.name)}</b><small>संख्या: ${x.quantity} | कीमत: ₹${x.price}</small>
-<button class="danger" onclick="deleteStock(${i})">हटाएँ</button></div>`).join('')||'<p>स्टॉक खाली है।</p>';
+ document.getElementById("stockList").innerHTML=stocks.map(x=>`
+ <div class="item"><b>${esc(x.name)}</b><br>
+ संख्या: ${x.qty} | कीमत: ₹${x.cost}
+ <button class="delete" onclick="removeItem('imrc_stocks',${x.id})">हटाएँ</button></div>`).join("")||"अभी स्टॉक खाली है";
+
+ document.getElementById("dueList").innerHTML=dues.map(x=>`
+ <div class="item">${esc(x.name)} - ₹${x.amount}
+ <button class="action" onclick="removeItem('imrc_dues',${x.id})">भुगतान मिल गया</button>
+ </div>`).join("")||"कोई बाकी भुगतान नहीं है";
+
+ document.getElementById("saleList").innerHTML=sales.map(x=>`
+ <div class="item">${esc(x.name)} - ₹${x.amount}<br>
+ <span class="small">${x.date}</span>
+ <button class="delete" onclick="removeItem('imrc_sales',${x.id})">हटाएँ</button></div>`).join("")||"अभी कोई बिक्री नहीं है";
 }
 
 function esc(s){
-return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-}
-function changeStatus(id,s){let x=repairs.find(r=>r.id===id);if(x){x.status=s;save()}}
-function deleteRepair(id){if(confirm('यह रिकॉर्ड हटाएँ?')){repairs=repairs.filter(x=>x.id!==id);save()}}
-function deleteStock(i){if(confirm('यह सामान हटाएँ?')){stocks.splice(i,1);save()}}
-function backup(){
-let data={repairs,stocks,payments};
-let blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
-let a=document.createElement('a');
-a.href=URL.createObjectURL(blob);
-a.download='indrajeet-shop-backup.json';
-a.click();
-URL.revokeObjectURL(a.href);
-}
-function clearData(){
-if(confirm('क्या आप सच में सारा दुकान का डेटा मिटाना चाहते हैं?')){
-repairs=[];stocks=[];payments=[];save();
-alert('डेटा मिटा दिया गया');
-}
+ return String(s??"").replace(/[&<>"']/g,c=>({
+ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+ })[c]);
 }
 render();
 </script>
